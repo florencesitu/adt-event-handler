@@ -9,6 +9,21 @@ function Patient({ patient, discharge, transfer }) {
   const [dischargeDate, setDischargeDate] = useState("");
   const [dischargeError, setDischargeError] = useState(false);
   const [transferError, setTransferError] = useState(false);
+  const [transferErrorMessage, setTransferErrorMessage] = useState("");
+
+  const validateBed = (value) => {
+    const numberRegex = /^[0-9]+$/;
+    const alphanumericRegex = /^[a-zA-Z0-9]+$/;
+    if (numberRegex.test(value)) {
+      const numberValue = parseInt(value, 10);
+      if (numberValue < 1 || numberValue > 99999) {
+        return "Number must be between 1 and 99999";
+      }
+    } else if (!alphanumericRegex.test(value)) {
+      return "Invalid input. Only numbers, letters, or a combination are allowed";
+    }
+    return "";
+  };
 
   const handleDischargeDateChange = (newValue) => {
     setDischargeDate(newValue);
@@ -17,32 +32,27 @@ function Patient({ patient, discharge, transfer }) {
 
   const handleDischarge = () => {
     if (!dischargeDate) {
-      console.log("Discharge Error: Discharge date is required");
       setDischargeError(true);
       return;
     }
-    try {
-      console.log("Attempting discharge...");
       discharge(patient.id, dischargeDate);
       setDischargeDate("");
-    } catch (error) {
-      console.error("Discharge Error:", error.message);
-    }
   };
 
   const handleTransfer = () => {
     if (!newBed) {
-      console.log("Transfer Error: New bed is required");
       setTransferError(true);
+      setTransferErrorMessage("New bed is required");
       return;
     }
-    try {
-      console.log("Attempting transfer...");
+    const validationError = validateBed(newBed);
+    if (validationError) {
+      setTransferError(true);
+      setTransferErrorMessage(validationError);
+      return;
+    }
       transfer(patient.id, newBed);
       setNewBed("");
-    } catch (error) {
-      console.error("Transfer Error:", error.message);
-    }
   };
 
   return (
@@ -61,12 +71,13 @@ function Patient({ patient, discharge, transfer }) {
             onChange={(e) => {
               setNewBed(e.target.value);
               setTransferError(false);
+              setTransferErrorMessage("");
             }}
             placeholder="New Bed"
             className={`custom-input ${transferError ? "error" : ""}`}
           />
         </Row>
-        {transferError && <Row className="error-message">New bed is required</Row>}
+        {transferError && <Row className="error-message">{transferErrorMessage}</Row>}
         <Row className="px-4">
           <Button onClick={handleTransfer}>Transfer</Button>
         </Row>
@@ -85,7 +96,7 @@ function Patient({ patient, discharge, transfer }) {
               onChange={handleDischargeDateChange}
               slotProps={{
                 textField: {
-                  variant: 'outlined',
+                  variant: "outlined",
                   error: dischargeError,
                   helperText: dischargeError ? "Discharge date is required" : "",
                   className: `custom-datepicker ${dischargeError ? "error" : ""}`

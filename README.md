@@ -8,10 +8,10 @@ This project is a simple project that completes the major operations of a health
 
 ## Instructions on how to use the system
 
-On the menu bar, you can find the admission form tab and the patient list tab.
-Navigate to the admission form tab and enter patient information to get started.
-Enter all required information, and hit the submit button.
-Admit more patients or go to the patient list tab to see the full list of patients.
+On the menu bar, you can find the admission form tab and the patient list tab.\
+Navigate to the admission form tab and enter patient information to get started.\
+Enter all required information, and hit the submit button.\
+Admit more patients or go to the patient list tab to see the full list of patients.\
 In the patient list tab, you can also choose to transfer or discharge a patient.
 
 ## Available Scripts

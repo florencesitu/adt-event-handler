@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Description
+
+This project is a simple project that completes the major operations of a healthcare system. Patient admission, transfer, and discharge can be done with the use of this system. Data is stored with LocalStorage for simplicity. 
+
+## Instructions on how to use the system
+
+On the menu bar, you can find the admission form tab and the patient list tab.
+Navigate to the admission form tab and enter patient information to get started.
+Enter all required information, and hit the submit button.
+Admit more patients or go to the patient list tab to see the full list of patients.
+In the patient list tab, you can also choose to transfer or discharge a patient.
+
 ## Available Scripts
 
 In the project directory, you can run:

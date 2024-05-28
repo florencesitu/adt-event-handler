@@ -17,23 +17,19 @@ function App() {
   const [patientList, setPatientList] = useState([]);
   useEffect(() => {
     const storedPatients = JSON.parse(localStorage.getItem("patients")) || [];
-    console.log("Loaded patients (useEffect):", storedPatients);
     setPatientList(storedPatients);
   }, []);
 
   const handleAdmission = (newPatient) => {
     try {
-      console.log("Attempting admission...");
       admission(newPatient);
       const updatedPatients = JSON.parse(localStorage.getItem("patients"));
-      console.log("Updated patients (handleAdmission):", updatedPatients);
       setPatientList(updatedPatients);
       setModalMessage("New Patient is added successfully");
       setModalTitle("Success");
       setModalVariant("success");
       setShowModal(true);
     } catch (e) {
-      console.error("Admission Error:", e.message);
       setModalMessage(e.message);
       setModalTitle("Error");
       setModalVariant("danger");
@@ -43,17 +39,14 @@ function App() {
 
   const handleDischarge = (patientId, dischargeDate) => {
     try {
-      console.log("Attempting discharge...");
       discharge(patientId, dischargeDate);
       const updatedPatients = JSON.parse(localStorage.getItem("patients"));
-      console.log("Updated patients (handleDischarge):", updatedPatients);
       setPatientList(updatedPatients);
       setModalMessage("Discharge success");
       setModalTitle("Success");
       setModalVariant("success");
       setShowModal(true);
     } catch (e) {
-      console.error("Discharge Error:", e.message);
       setModalMessage(e.message);
       setModalTitle("Error");
       setModalVariant("danger");
@@ -62,18 +55,15 @@ function App() {
   };
 
   const handleTransfer = (patientId, newBed) => {
-    console.log("Attempting transfer...");
     try {
       transfer(patientId, newBed);
       const updatedPatients = JSON.parse(localStorage.getItem("patients"));
-      console.log("Updated patients (handleTransfer):", updatedPatients);
       setPatientList(updatedPatients);
       setModalMessage("Transfer success");
       setModalTitle("Success");
       setModalVariant("success");
       setShowModal(true);
     } catch (e) {
-      console.error("Transfer Error:", e.message);
       setModalMessage(e.message);
       setModalTitle("Error");
       setModalVariant("danger");

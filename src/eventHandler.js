@@ -15,8 +15,8 @@ const validateDates = (dateOfBirth, admissionDate, dischargeDate) => {
   if (dischargeDate && new Date(dischargeDate) > today) {
     throw new Error("Patient's discharge date cannot be later than today's date.");
   }
-  if (dischargeDate && new Date(dischargeDate) > admissionDate) {
-    throw new Error("Discharge date cannot be earlier than admission date")
+  if (dischargeDate && admissionDate && new Date(dischargeDate) < new Date(admissionDate)) {
+    throw new Error("Discharge date cannot be earlier than admission date.");
   }
 };
 

@@ -60,7 +60,7 @@ function Patient({ patient, discharge, transfer }) {
       <td>{patient.id}</td>
       <td>{patient.firstName}</td>
       <td>{patient.lastName}</td>
-      <td>{new Date(patient.dateOfBirth).toLocaleDateString()}</td>
+      <td>{new Date(patient.dateOfBirth).toISOString()}</td>
       <td>{patient.gender}</td>
       <td>
         <Row className="px-4">{patient.currentBed}</Row>
@@ -82,11 +82,11 @@ function Patient({ patient, discharge, transfer }) {
           <Button onClick={handleTransfer}>Transfer</Button>
         </Row>
       </td>
-      <td>{new Date(patient.admissionDate).toLocaleDateString()}</td>
+      <td>{new Date(patient.admissionDate).toISOString()}</td>
       <td>
         <Row className="px-4">
           {patient.dischargeDate
-            ? new Date(patient.dischargeDate).toLocaleDateString()
+            ? new Date(patient.dischargeDate).toISOString()
             : "N/A"}
         </Row>
         <Row className="custom-input">

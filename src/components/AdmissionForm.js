@@ -76,11 +76,15 @@ function AdmissionForm({ admission }) {
     if (!isValid) return;
 
     const id = Date.now().toString();
+
     const newPatient = {
       id,
       ...formData,
+      dateOfBirth: formData.dateOfBirth.toISOString(),
+      admissionDate: formData.admissionDate.toISOString(),
       dischargeDate: null,
     };
+    console.log("Patient submission", formData.admissionDate);
 
     admission(newPatient);
     setFormData({

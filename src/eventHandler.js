@@ -15,7 +15,14 @@ const validateDates = (dateOfBirth, admissionDate, dischargeDate) => {
   if (dischargeDate && new Date(dischargeDate) > today) {
     throw new Error("Patient's discharge date cannot be later than today's date.");
   }
-  if (dischargeDate && admissionDate && new Date(dischargeDate) < new Date(admissionDate)) {
+
+  console.log("Discharge Date before if condition", dischargeDate);
+  console.log("Admission date before if statement", admissionDate);
+  console.log("Milli second of discharge date", (new Date(dischargeDate)).getMilliseconds);
+  console.log("Milli second of admission date", (new Date(admissionDate)));
+
+  if (dischargeDate && new Date(dischargeDate) < new Date(admissionDate)) {
+    console.log(new Date(dischargeDate) < new Date(admissionDate));
     throw new Error("Discharge date cannot be earlier than admission date.");
   }
 };
@@ -38,11 +45,11 @@ export const admission = (patient) => {
 };
 
 export const discharge = (patientId, dischargeDate) => {
-  validateDates(null, null, dischargeDate);
 
   const patient = patients.find((p) => p.id === patientId);
   if (!patient) throw new Error("Patient not found.");
   if (patient.dischargeDate !== null) throw new Error("Patient is already discharged.");
+  validateDates(null, patient.admissionDate, dischargeDate);
 
   patient.dischargeDate = dischargeDate;
   localStorage.setItem("patients", JSON.stringify(patients));
